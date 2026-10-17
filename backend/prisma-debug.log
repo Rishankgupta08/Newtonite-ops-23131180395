@@ -1,0 +1,73 @@
+
+> backend@1.0.0 db:migrate
+> prisma migrate dev
+
+prisma:cli:bin Failed to initialize the command state: Error: ENOENT: no such file or directory, open '/Users/mac/Library/Preferences/prisma-nodejs/commands.json' +322ms
+prisma:config:loadConfigFromFile Config file loaded in 24.37ms +282ms
+prisma:config:loadConfigFromFile No config file found in the current working directory /Users/mac/newtonite-ops-23131180395/backend +0ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+prisma:getSchema prismaConfig {
+  "config": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "loadedFromFile": "/Users/mac/newtonite-ops-23131180395/backend/package.json"
+} +28ms
+prisma:getSchema Checking existence of /Users/mac/newtonite-ops-23131180395/backend/schema.prisma +0ms
+prisma:getSchema Reading schema from single file /Users/mac/newtonite-ops-23131180395/backend/schema.prisma +0ms
+prisma:getSchema Checking existence of /Users/mac/newtonite-ops-23131180395/backend/prisma/schema.prisma +1ms
+prisma:getSchema Reading schema from single file /Users/mac/newtonite-ops-23131180395/backend/prisma/schema.prisma +0ms
+prisma:getConfig Using getConfig Wasm +0ms
+prisma:cli Failed to read schema information. Using default values: '{\n  "name": "GetConfigError"\n}' +8ms
+prisma:engines binaries to download schema-engine, libquery-engine +358ms
+prisma:getSchema prismaConfig {
+  "config": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "loadedFromFile": "/Users/mac/newtonite-ops-23131180395/backend/package.json"
+} +2ms
+prisma:getSchema Checking existence of /Users/mac/newtonite-ops-23131180395/backend/schema.prisma +0ms
+prisma:getSchema Reading schema from single file /Users/mac/newtonite-ops-23131180395/backend/schema.prisma +0ms
+prisma:getSchema prismaConfig {
+  "config": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "loadedFromFile": "/Users/mac/newtonite-ops-23131180395/backend/package.json"
+} +0ms
+prisma:getSchema Checking existence of /Users/mac/newtonite-ops-23131180395/backend/schema.prisma +0ms
+prisma:getSchema Reading schema from single file /Users/mac/newtonite-ops-23131180395/backend/schema.prisma +0ms
+prisma:getSchema Checking existence of /Users/mac/newtonite-ops-23131180395/backend/prisma/schema.prisma +0ms
+prisma:getSchema Reading schema from single file /Users/mac/newtonite-ops-23131180395/backend/prisma/schema.prisma +0ms
+prisma:getSchema Checking existence of /Users/mac/newtonite-ops-23131180395/backend/prisma/schema.prisma +0ms
+prisma:getSchema Reading schema from single file /Users/mac/newtonite-ops-23131180395/backend/prisma/schema.prisma +0ms
+prisma:getConfig Using getConfig Wasm +0ms
+prisma:getConfig config data retrieved without errors in getConfig Wasm +1ms
+prisma:cli:checkpoint runCheckpointClientCheck(): Execution time for getting info: 2.773707999999999 ms +0ms
+prisma:cli:checkpoint runCheckpointClientCheck(): Execution time for "await checkpoint.check(data)": 18.352374999999995 ms +19ms
+prisma:loadEnv project root found at /Users/mac/newtonite-ops-23131180395/backend/package.json +62ms
+prisma:getSchema prismaConfig {
+  "config": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "loadedFromFile": "/Users/mac/newtonite-ops-23131180395/backend/package.json"
+} +0ms
+prisma:tryLoadEnv Environment variables loaded from /Users/mac/newtonite-ops-23131180395/backend/.env +0ms
+Environment variables loaded from .env
+prisma:getSchema prismaConfig {
+  "config": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "loadedFromFile": "/Users/mac/newtonite-ops-23131180395/backend/package.json"
+} +1ms
+prisma:getSchema Checking existence of /Users/mac/newtonite-ops-23131180395/backend/schema.prisma +1ms
+prisma:getSchema Reading schema from single file /Users/mac/newtonite-ops-23131180395/backend/schema.prisma +0ms
+prisma:getSchema Checking existence of /Users/mac/newtonite-ops-23131180395/backend/prisma/schema.prisma +0ms
+prisma:getSchema Reading schema from single file /Users/mac/newtonite-ops-23131180395/backend/prisma/schema.prisma +0ms
+Prisma schema loaded from prisma/schema.prisma
+prisma:getConfig Using getConfig Wasm +0ms
+prisma:getConfig config data retrieved without errors in getConfig Wasm +1ms
+Datasource "db": PostgreSQL database "newtonite_ops", schema "public" at "localhost:5432"
+
+prisma:validate Using validate Wasm +0ms
+Error: P1010: User was denied access on the database `(not available)`

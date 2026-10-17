@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  VIEWER
+  MEMBER
+  LEAD
+  ADMIN
+}
+
+enum WorkItemType {
+  INCIDENT
+  CUSTOMER_ISSUE
+  PAYMENT
+  COMPLIANCE
+  TASK
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum WorkItemStatus {
+  OPEN
+  IN_PROGRESS
+  AWAITING_APPROVAL
+  RESOLVED
+  CLOSED
+}
+
+enum JobStatus {
+  PENDING
+  PROCESSING
+  DONE
+  FAILED
+}
+
+model User {
+  id             String          @id @default(uuid())
+  email          String          @unique
+  passwordHash   String
+  name           String
+  createdAt      DateTime        @default(now())
+  memberships    Membership[]
+  createdItems   WorkItem[]      @relation("createdBy")
+  assignedItems  WorkItem[]      @relation("assignee")
+  activityEvents ActivityEvent[]
+  comments       Comment[]
+}
+
+model Team {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  createdAt   DateTime     @default(now())
+  memberships Membership[]
+  workItems   WorkItem[]
+}
+
+model Membership {
+  id     String @id @default(uuid())
+  userId String
+  teamId String
+  role   Role
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, teamId])
+}
+
+model WorkItem {
+  id             String          @id @default(uuid())
+  title          String
+  description    String
+  type           WorkItemType
+  priority       Priority
+  status         WorkItemStatus
+  teamId         String
+  assigneeId     String?
+  createdById    String
+  dueDate        DateTime?
+  version        Int             @default(1)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  team           Team            @relation(fields: [teamId], references: [id])
+  assignee       User?           @relation("assignee", fields: [assigneeId], references: [id])
+  createdBy      User            @relation("createdBy", fields: [createdById], references: [id])
+  activityEvents ActivityEvent[]
+  comments       Comment[]
+
+  @@index([teamId])
+  @@index([status])
+  @@index([assigneeId])
+  @@index([priority])
+  @@index([createdAt])
+}
+
+model ActivityEvent {
+  id         String   @id @default(uuid())
+  workItemId String
+  userId     String
+  eventType  String
+  fromValue  String?
+  toValue    String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+  workItem   WorkItem @relation(fields: [workItemId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model Comment {
+  id         String   @id @default(uuid())
+  workItemId String
+  userId     String
+  content    String
+  createdAt  DateTime @default(now())
+  workItem   WorkItem @relation(fields: [workItemId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model IdempotencyKey {
+  id           String   @id @default(uuid())
+  key          String   @unique
+  responseBody Json
+  statusCode   Int
+  createdAt    DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model OutboxJob {
+  id            String    @id @default(uuid())
+  eventType     String
+  payload       Json
+  status        JobStatus @default(PENDING)
+  attempts      Int       @default(0)
+  maxAttempts   Int       @default(3)
+  lastAttemptAt DateTime?
+  failedReason  String?
+  createdAt     DateTime  @default(now())
+
+  @@index([status, createdAt])
+}
