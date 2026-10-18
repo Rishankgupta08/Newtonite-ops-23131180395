@@ -35,7 +35,7 @@ notifications through a transactional outbox.
 ```bash
 git clone <repo-url>
 cd newtonite-ops-<rollno>
-cp .env.example .env
+cp backend/.env.example backend/.env
 ```
 
 The .env file is ready to use as-is for local development.
