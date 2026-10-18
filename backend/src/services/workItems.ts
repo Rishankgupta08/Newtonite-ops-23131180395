@@ -92,7 +92,9 @@ export async function listItems(userId: string, filters: ListFilters) {
     ...(filters.priority && { priority: filters.priority }),
     ...(filters.type && { type: filters.type }),
     ...(filters.teamId && { teamId: filters.teamId }),
-    ...(filters.assigneeId && { assigneeId: filters.assigneeId }),
+    ...(filters.assigneeId && {
+      assigneeId: filters.assigneeId === 'null' ? null : filters.assigneeId,
+    }),
     ...(filters.q && {
       OR: [
         { title: { contains: filters.q, mode: 'insensitive' } },
